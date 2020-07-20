@@ -2,7 +2,7 @@
 Unlike my other projects, this specific repository serves both to provide supplemental information for an
 associated manuscript, but also will continue to serve as the location where all past and future meta-metabolomic,
 ecological analyses are hosted. Specifically, those files that are not enclosed in the "Manuscript Specific Files" 
-folder are broadly applicable to any FTICR report generated using Formularity (<a href="https://pubs.acs.org/doi/10.1021/acs.analchem.7b03318">Tolić et al., 2017</a> ).
+folder are broadly applicable to any FTICR report generated using Formularity (<a href="https://pubs.acs.org/doi/10.1021/acs.analchem.7b03318">Tolić et al., 2017</a>).
 
 In order to perform analyses similar to those detailed in the main manuscript an order does need to be followed:
 1) FTMS_Analysis.R - this script is based upon the ftmsRanalysis R package and will help process and organize the data
