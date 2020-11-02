@@ -1,27 +1,26 @@
-### Detecting putative biochemical transformations within each individual sample
-# RED 2020; robert.danczak@pnnl.gov; danczak.6@gmail.com
+### Determing carbon transformations ###
+# RED 2020, robert.danczak@pnnl.gov
 
 library(dplyr)
 library(tidyr)
 
 options(digits=10) # Sig figs in mass resolution data
 
-Sample_Name = "Dataset_Name"
-
+Sample_Name = "Dataset_Name" # This is a name that will be added to the output file (helps in tracking)
 
 #######################
 ### Loading in data ###
 #######################
 
 # Loading in ICR data
-setwd("/path/to/ICR_data")
+setwd("/path/to/ICR-Data")
 data = read.csv(list.files(pattern = "*_Data.csv"), row.names = 1) # Keeping data and mol-data seperate to ensure they are unaltered
 mol = read.csv(list.files(pattern = "*_Mol.csv"), row.names = 1)
 
 colnames(data) = paste("Sample_", colnames(data), sep="")
 
 # Loading in transformations
-trans.full =  read.csv("Transformation_Database.csv")
+trans.full =  read.csv("Transformation_Database_07-2020.csv")
 trans.full$Name = as.character(trans.full$Name)
 
 # ############# #
@@ -33,19 +32,12 @@ if(identical(x = row.names(data), y = row.names(mol)) == FALSE){
   stop("Something is incorrect: the mol. info and peak counts don't match")
 }
 
-# Checking to ensure "FREDA_Processing.R" was run
+# Checking to ensure ftmsRanalysis was run
 if(length(which(mol$C13 == 1)) > 0){
   stop("Isotopic signatures weren't removed")
 }
 
-if(length(grep("QC_SRFAII", colnames(data))) > 0){
-  stop("Suwannee River standards are still in the data")
-}
-
-if(length(grep("rep1|rep2", colnames(data))) > 0){
-  stop("Technical replicates are still in the data")
-}
-
+# Likely not necessary, but ensuring the data is presence/absence
 if(max(data) > 1){
   print("Data was not presence/absence")
   data[data > 1] = 1
